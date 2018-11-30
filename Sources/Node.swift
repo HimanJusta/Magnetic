@@ -22,13 +22,47 @@ import SpriteKit
         return label
     }()
     
+    private var primaryGradientTexture: SKTexture {
+        let color1 = UIColor(red: 245.0/255.0, green: 81.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+        let color2 = UIColor(red: 159.0/255.0, green: 4.0/255.0, blue: 27.0/255.0, alpha: 1.0)
+        
+        return self.makeGradient(color1: color1, color2: color2)
+    }
+    
+    private var secondaryGradientTexture: SKTexture {
+        let blueColor1 = UIColor(red: 91.0/255.0, green: 153.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        let blueColor2 = UIColor(red: 0.0/255.0, green: 59.0/255.0, blue: 148.0/255.0, alpha: 1.0)
+        
+        return self.makeGradient(color1: blueColor1, color2: blueColor2)
+    }
+    
     public lazy var sprite: SKSpriteNode = { [unowned self] in
-        let sprite = SKSpriteNode()
+        let sprite = SKSpriteNode(texture: primaryGradientTexture)
         sprite.size = self.frame.size
-        sprite.colorBlendFactor = 0.5
         self.mask.addChild(sprite)
+        
+        // secondary gradien
+        self.texture = secondaryGradientTexture
+        
         return sprite
     }()
+    
+    private func makeGradient(color1: UIColor, color2: UIColor) -> SKTexture {
+        /*  Radial Gradient
+            let radialGradientSize = CGSize(width: min(self.frame.size.width, self.frame.size.height), height: min(self.frame.size.width, self.frame.size.height))
+            let radialGradientColors = [color1, color2]
+            let radialGradientLocations: [CGFloat] = [0, 1]
+            let radialGradientTexture = SKTexture(radialGradientWithColors: radialGradientColors, locations: radialGradientLocations, size: radialGradientSize)
+            return radialGradientTexture
+         */
+        
+        // Linear Gradient
+        let linearGradientSize = self.frame.size
+        let linearGradientColors = [color1, color2]
+        let linearGradientLocations: [CGFloat] = [0, 0.5]
+        let angle = 225.0
+        return SKTexture(linearGradientWithAngle: CGFloat(angle), colors: linearGradientColors, locations: linearGradientLocations, size: linearGradientSize)
+    }
     
     /**
      The text displayed by the node.
@@ -45,8 +79,8 @@ import SpriteKit
         didSet {
 //            let url = URL(string: "https://picsum.photos/1200/600")!
 //            let image = UIImage(data: try! Data(contentsOf: url))
-            texture = image.map { SKTexture(image: $0.aspectFill(self.frame.size)) }
-            sprite.size = texture?.size() ?? self.frame.size
+//            texture = image.map { SKTexture(image: $0.aspectFill(self.frame.size)) }
+//            sprite.size = texture?.size() ?? self.frame.size
         }
     }
     
@@ -142,7 +176,7 @@ import SpriteKit
      */
     open func deselectedAnimation() {
         run(.scale(to: 1, duration: 0.2))
-        sprite.texture = nil
+        sprite.run(.setTexture(self.primaryGradientTexture))
     }
     
     /**

@@ -84,7 +84,7 @@ import SpriteKit
         magneticField.region = SKRegion(radius: radius)
         magneticField.minimumRadius = radius
         magneticField.strength = strength
-        magneticField.position = CGPoint(x: size.width / 1.5, y: size.height / 1.5)
+        magneticField.position = CGPoint(x: size.width / 2, y: size.height / 1.5)
     }
     
     override open func addChild(_ node: SKNode) {
