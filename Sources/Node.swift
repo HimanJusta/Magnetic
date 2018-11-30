@@ -59,7 +59,7 @@ import SpriteKit
         // Linear Gradient
         let linearGradientSize = self.frame.size
         let linearGradientColors = [color1, color2]
-        let linearGradientLocations: [CGFloat] = [0, 0.5]
+        let linearGradientLocations: [CGFloat] = [0, 1]
         let angle = 225.0
         return SKTexture(linearGradientWithAngle: CGFloat(angle), colors: linearGradientColors, locations: linearGradientLocations, size: linearGradientSize)
     }
