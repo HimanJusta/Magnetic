@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.author           = { 'efremidze' => 'efremidzel@hotmail.com' }
   s.documentation_url = 'https://efremidze.github.io/Magnetic/'
   s.source           = { :git => 'https://github.com/efremidze/Magnetic.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.source_files = 'Sources/*.swift'
 end
